@@ -1,0 +1,98 @@
+/**
+* uploader
+*/
+
+.nvn-uploader__preview-image__parent {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  margin: -10px;
+}
+
+.nvn-uploader__preview-image {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.nvn-uploader__preview-image__no-image {
+  position: relative;
+  margin: -7px 10px;
+}
+
+.nvn-uploader__preview-image > img {
+  width: inherit;
+  height: inherit;
+}
+
+.nvn-uploader__preview-image__delete {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.nvn-uploader__preview-image:hover .nvn-uploader__preview-image__delete {
+  opacity: 1;
+}
+
+.nvn-uploader__preview-image__delete-button {
+  background-color: transparent;
+  border: none;
+  background-color: #ed5e68;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.nvn-uploader__preview-image__delete-button:hover {
+  background-color: #a7333b;
+}
+
+.nvn-uploader__upload-button {
+  display: block;
+  margin-top: 30px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: #9ece6b;
+  color: #fff;
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.nvn-uploader__upload-button:hover {
+  background-color: #7ba250;
+}
+/**
+* end uploader
+*/
+
+/**
+* metabox
+*/
+
+.nvn-metabox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.nvn-metabox__title {
+  font-size: 21px;
+  margin-bottom: 10px;
+}

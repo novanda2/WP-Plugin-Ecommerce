@@ -26,9 +26,6 @@ class Products
         add_filter('single_template', [$this, 'set_single_template']);
 
 
-        // custom metabox
-        add_action('add_meta_boxes', [$this, 'add_product_detail_metabox']);
-
         /**
          * save post data
          * params 
@@ -67,6 +64,13 @@ class Products
         }
 
         return $template;
+    }
+
+
+    public function custom_metabox()
+    {
+        // custom metabox
+        add_action('add_meta_boxes', [$this, 'add_product_detail_metabox']);
     }
 
     public function add_product_detail_metabox()
@@ -137,6 +141,17 @@ class Products
                 $args['show_in_graphql'] = true;
                 $args['graphql_single_name'] = 'product';
                 $args['graphql_plural_name'] = 'products';
+            }
+
+            return $args;
+        }, 10, 2);
+
+        add_filter('register_taxonomy_args', function ($args, $taxonomy) {
+
+            if ('doc_tag' === $taxonomy) {
+                $args['show_in_graphql'] = true;
+                $args['graphql_single_name'] = 'documentTag';
+                $args['graphql_plural_name'] = 'documentTags';
             }
 
             return $args;

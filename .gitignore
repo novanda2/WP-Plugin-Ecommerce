@@ -1,0 +1,32 @@
+# dependencies
+next-ecommerce/node_modules
+next-ecommerce/.pnp
+next-ecommerce/.pnp.js
+
+# testing
+next-ecommerce/coverage
+
+# next.js
+next-ecommerce/.next/
+next-ecommerce/out/
+
+# production
+next-ecommerce//build
+
+# misc
+next-ecommerce/.DS_Store
+next-ecommerce/*.pem
+
+# debug
+next-ecommerce/npm-debug.log*
+next-ecommerce/yarn-debug.log*
+next-ecommerce/yarn-error.log*
+
+# local env files
+next-ecommerce/.env.local
+next-ecommerce/.env.development.local
+next-ecommerce/.env.test.local
+next-ecommerce/.env.production.local
+
+# vercel
+.vercel

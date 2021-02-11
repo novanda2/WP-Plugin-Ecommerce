@@ -66,13 +66,19 @@ $products_params = (object)[
                 'singular_name' => 'Product Categories'
             ),
             // 'hierarchical' => true,
-            'rewrite' => array('slug' => 'collection')
+            'rewrite' => array('slug' => 'collection', 'with_front' => false),
+            'show_in_graphql' => true,
+            'graphql_single_name' => 'documentTag',
+            'graphql_plural_name' => 'documentTags',
         )
     ),
 ];
 
 // products
-new Products($products_params);
+$produtcs = new Products($products_params);
+
+// metabox
+$produtcs->custom_metabox();
 
 // comments
 if ($allow_rating)

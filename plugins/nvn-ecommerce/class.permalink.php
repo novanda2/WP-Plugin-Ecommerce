@@ -41,7 +41,7 @@ class CustomPermalink
             global $wp_rewrite;
 
             //Write the rule
-            $wp_rewrite->set_permalink_structure('post/%postname%/');
+            $wp_rewrite->set_permalink_structure('blog/%postname%/');
 
             //Set the option
             update_option("rewrite_rules", FALSE);

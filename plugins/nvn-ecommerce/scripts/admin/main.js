@@ -1,14 +1,16 @@
 jQuery(document).ready(function ($) {
-
-    $("#postbox-container-2").draggable({ disabled: true })
-    $("#normal-sortables").draggable({ disabled: true });
-    $("#products_detail_fields").draggable({ disabled: true });
     /**
      * 
      * 
      * Media 
      * Uploader
      * 
+     * 
+     * @author Novanda 
+     * 
+     * the code work properly
+     * but doesnt satisfied
+     * ill refactor letter
      * 
      */
 
@@ -52,7 +54,7 @@ jQuery(document).ready(function ($) {
 
     /**show selected image when first loaded post page */
     const ShowSelectedImage = () => {
-        const input = $('.nvn-uploader__input-images').val()?.split(',')
+        const input = $('.nvn-uploader__input-images input').val()?.split(',')
         // fix bug empty string in first array
         const newInput = input?.filter(i => i !== "")
         previewImages = newInput
@@ -93,10 +95,11 @@ jQuery(document).ready(function ($) {
 
     /** function change input value */
     const changeInputValue = (newInputVal) => {
-        const input = $('.nvn-uploader__input-images')
-        newInputVal = previewImages.join(',')
-
-        input.val(newInputVal)
+        const input = $('.nvn-uploader__input-images input')
+        if (input) {
+            newInputVal = previewImages.join(',')
+            input.val(newInputVal)
+        }
     }
 
     /** function => delete image from arr*/
@@ -124,7 +127,7 @@ jQuery(document).ready(function ($) {
 
             button.on('click', () => {
                 addImageToPreview(previewImages)
-                changeInputValue()
+                changeInputValue(previewImages)
             })
 
         }))
@@ -160,20 +163,21 @@ jQuery(document).ready(function ($) {
     }
 
 
-    inputPrice.value = convertToRupiah(inputPriceValue.value)
+    if (inputPrice) {
+        inputPrice.value = convertToRupiah(inputPriceValue.value)
 
+        inputPrice.addEventListener('input', () => {
 
-    inputPrice.addEventListener('input', () => {
-
-        // if contain number 
-        if (/\d/.test(inputPrice.value)) {
-            inputPrice.value = convertToRupiah(parseInt(inputPrice.value.replace(/,.*|[^0-9]/g, ''), 10))
-            inputPriceValue.value = parseInt(inputPrice.value.replace(/,.*|[^0-9]/g, ''), 10)
-            console.log(inputPriceValue.value)
-        }
-        else
-            inputPrice.value = null
-    })
+            // if contain number 
+            if (/\d/.test(inputPrice.value)) {
+                inputPrice.value = convertToRupiah(parseInt(inputPrice.value.replace(/,.*|[^0-9]/g, ''), 10))
+                inputPriceValue.value = parseInt(inputPrice.value.replace(/,.*|[^0-9]/g, ''), 10)
+                console.log(inputPriceValue.value)
+            }
+            else
+                inputPrice.value = null
+        })
+    }
 
     /**
      * end

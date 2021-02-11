@@ -24,6 +24,7 @@ require_once(PLUGIN_DIR . 'class.ecommerce-option.php');
 require_once(PLUGIN_DIR . 'class.products.php');
 require_once(PLUGIN_DIR . 'class.product-comments.php');
 require_once(PLUGIN_DIR . 'class.permalink.php');
+require_once(PLUGIN_DIR . 'class.metaboxio.php');
 
 
 $allow_rating = get_option('product_review_rating');
@@ -60,6 +61,9 @@ $products_params = (object)[
                 'template' => '/templates/metabox/class.product-detail.php'
             ),
         ),
+        'custom_field_metaboxio', array(
+            
+        ),
         'custom_taxonomies' => array(
             'labels' => array(
                 'name' => 'Product Category',
@@ -78,7 +82,8 @@ $products_params = (object)[
 $produtcs = new Products($products_params);
 
 // metabox
-$produtcs->custom_metabox();
+// $produtcs->custom_metabox();
+MetaboxIO::init();
 
 // comments
 if ($allow_rating)

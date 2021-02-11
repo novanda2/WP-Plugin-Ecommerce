@@ -23,6 +23,7 @@ define('PLUGIN_WITH_CLASSES__FILE__', __FILE__);
 require_once(PLUGIN_DIR . 'class.ecommerce-option.php');
 require_once(PLUGIN_DIR . 'class.products.php');
 require_once(PLUGIN_DIR . 'class.product-comments.php');
+require_once(PLUGIN_DIR . 'class.permalink.php');
 
 
 $products_params = (object)[
@@ -73,6 +74,8 @@ new Products($products_params);
 // comments
 ProductComments::init();
 
+CustomPermalink::init();
+
 // graphql
 add_filter('register_post_type_args', function ($args, $post_type) {
 
@@ -86,34 +89,3 @@ add_filter('register_post_type_args', function ($args, $post_type) {
 }, 10, 2);
 
 
-function wpa_show_permalinks($post_link, $post)
-{
-    if (is_object($post) && $post->post_type == 'products') {
-        $terms = wp_get_object_terms($post->ID, 'collections');
-        if ($terms) {
-            return str_replace('%collections%', $terms[0]->slug, $post_link);
-        }
-    }
-    return $post_link;
-}
-
-
-add_filter('post_type_link', 'wpa_show_permalinks', 1, 2);
-
-
-add_action('init', 'function_to_add');
-
-function function_to_add()
-{
-
-    global $wp_rewrite;
-
-    //Write the rule
-    $wp_rewrite->set_permalink_structure('%collections%/%postname%/');
-
-    //Set the option
-    update_option("rewrite_rules", FALSE);
-
-    //Flush the rules and tell it to write htaccess
-    $wp_rewrite->flush_rules(true);
-}

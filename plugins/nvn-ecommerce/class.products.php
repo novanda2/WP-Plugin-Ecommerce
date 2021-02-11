@@ -46,7 +46,7 @@ class Products
         wp_enqueue_script('ecommerce-admin', PLUGIN_URL . 'scripts/admin/main.js', array(), '1.0.0', true);
     }
 
-    public function set_archive_template()
+    public function set_archive_template($archive_template)
     {
         global $post;
         $plugin_root_dir = PLUGIN_DIR;

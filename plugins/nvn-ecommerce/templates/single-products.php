@@ -1,6 +1,8 @@
 <?php
 require_once(PLUGIN_DIR . 'class.helper.php');
 
+$allow_review = get_option('product_review');
+
 $product_images = get_post_meta($post->ID, '_product_images', true);
 $product_price = get_post_meta($post->ID, '_product_price', true);
 $product_images_arr = explode(',', $product_images);
@@ -24,5 +26,6 @@ get_header(); ?>
 
 
 <?php
-comments_template();
+if ($allow_review)
+    comments_template();
 get_footer();

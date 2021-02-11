@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * configureable field in our plugins
@@ -37,93 +37,161 @@
  */
 
 
-class PluginConfig {
-    public function __construct() {
+class PluginConfig
+{
+    public function __construct()
+    {
         // Hook into the admin menu
-        add_action( 'admin_menu', array( $this, 'create_plugin_settings_page' ) );
-        add_action( 'admin_init', array( $this, 'setup_sections' ) );
-        add_action( 'admin_init', array( $this, 'setup_fields' ) );
+        add_action('admin_menu', array($this, 'create_plugin_settings_page'));
+        add_action('admin_init', array($this, 'setup_sections'));
+        add_action('admin_init', array($this, 'setup_fields'));
     }
 
-    public function create_plugin_settings_page() {
+    public function create_plugin_settings_page()
+    {
         // Add the menu item and page
-        $page_title = 'My Awesome Settings Page';
+        $page_title = 'Ecommerce Options';
         $menu_title = 'Ecommerce Opt';
         $capability = 'manage_options';
-        $slug = 'smashing_fields';
-        $callback = array( $this, 'plugin_settings_page_content' );
+        $slug = 'ecommerce_opt';
+        $callback = array($this, 'plugin_settings_page_content');
         $icon = 'dashicons-admin-plugins';
         $position = 100;
-    
-        add_menu_page( $page_title, $menu_title, $capability, $slug, $callback, $icon, $position );
+
+        add_menu_page($page_title, $menu_title, $capability, $slug, $callback, $icon, $position);
     }
 
-    public function plugin_settings_page_content() { ?>
+    public function plugin_settings_page_content()
+    { ?>
         <div class="wrap">
-        <h2>My Awesome Settings Page</h2>
+            <h2>Ecommerce Options</h2>
             <form method="post" action="options.php">
                 <?php
-                    settings_fields( 'smashing_fields' );
-                    do_settings_sections( 'smashing_fields' );
-                    submit_button();
+                settings_fields('ecommerce_opt');
+                do_settings_sections('ecommerce_opt');
+                submit_button();
                 ?>
             </form>
         </div> <?php
-    }
+            }
 
-    public function setup_sections() {
-        /** 
-         * same callback but will run different thing
-         * cause callback assigned to params $arguments array
-         * with $arguments['id'] as unique key
-         * 
-         */
+            public function setup_sections()
+            {
+                /** 
+                 * same callback but will run different thing
+                 * cause callback assigned to params $arguments array
+                 * with $arguments['id'] as unique key
+                 * 
+                 */
 
 
-        add_settings_section( 'our_first_section', 'My First Section Title', array( $this, 'section_callback' ), 'smashing_fields' );
-        add_settings_section( 'our_second_section', 'My Second Section Title', array( $this, 'section_callback' ), 'smashing_fields' );
-        add_settings_section( 'our_third_section', 'My Third Section Title', array( $this, 'section_callback' ), 'smashing_fields' );
-    }
+                add_settings_section('products', 'Products Settings', array($this, 'section_callback'), 'ecommerce_opt');
+                // add_settings_section('our_second_section', 'My Second Section Title', array($this, 'section_callback'), 'ecommerce_opt');
+                // add_settings_section('our_third_section', 'My Third Section Title', array($this, 'section_callback'), 'ecommerce_opt');
+            }
 
-    public function section_callback( $arguments ) {
-        switch( $arguments['id'] ){
-            case 'our_first_section':
-                echo 'This is the first description here!';
-                break;
-            case 'our_second_section':
-                echo 'This one is number two';
-                break;
-            case 'our_third_section':
-                echo 'Third time is the charm!';
-                break;
+            public function section_callback($arguments)
+            {
+                // switch ($arguments['id']) {
+                //     case 'products':
+                //         echo 'Enable Comments for ';
+                //         break;
+                //     case 'our_second_section':
+                //         echo 'This one is number two';
+                //         break;
+                //     case 'our_third_section':
+                //         echo 'Third time is the charm!';
+                //         break;
+                // }
+            }
+
+
+            public function setup_fields()
+            {
+                $fields = array(
+                    array(
+                        'uid' => 'product_review',
+                        'label' => 'Product Review',
+                        'section' => 'products',
+                        'type' => 'option',
+                        'input_label' => '',
+                        'placeholder' => '',
+                        'options' => array('disable', 'enable'),
+                        'description' => 'Allow Visitor to Comments and Review Product',
+                        'default' => 'enable'
+                    ),
+                    array(
+                        'uid' => 'product_review_rating',
+                        'label' => 'Product Ratings',
+                        'section' => 'products',
+                        'type' => 'option',
+                        'input_label' => '',
+                        'placeholder' => '',
+                        'options' => array('disable', 'enable'),
+                        'description' => 'Allow Visitor to Rate Product',
+                        'default' => 'enable'
+                    ),
+                    array(
+                        'uid' => 'our_third_fie ld',
+                        'label' => 'Awesome Select',
+                        'section' => 'products  ',
+                        'type' => 'select',
+                        'input_label' => '',
+                        'options' => array(
+                            'yes' => 'Yeppers',
+                            'no' => 'No way dude!',
+                            'maybe' => 'Meh, whatever.'
+                        ),
+                        'placeholder' => 'Text goes here',
+                        'default' => 'enable'
+                    )
+                );
+                foreach ($fields as $field) {
+                    add_settings_field($field['uid'], $field['label'], array($this, 'field_callback'), 'ecommerce_opt', $field['section'], $field);
+                    register_setting('ecommerce_opt', $field['uid']);
+                }
+            }
+
+            public function field_callback($arguments)
+            {
+                $value = get_option($arguments['uid']); // Get the current value, if there is one
+                if (!$value) { // If no value exists
+                    $value = $arguments['default']; // Set to our default
+                }
+
+                // Check which type of field we want
+                switch ($arguments['uid']):
+                    case 'product_review': // If it is a text field
+                        if (!empty($arguments['options']) && is_array($arguments['options'])) {
+                            $options_markup = '';
+                            foreach ($arguments['options'] as $key => $label) {
+                                $options_markup .= sprintf('<option value="%s" %s>%s</option>', $key, selected($value, $key, false), $label);
+                            }
+                            printf('<select name="%1$s" id="%1$s">%2$s</select>', $arguments['uid'], $options_markup);
+                        }
+
+                        break;
+                    case 'product_review_rating': // If it is a text field
+                        if (!empty($arguments['options']) && is_array($arguments['options'])) {
+                            $options_markup = '';
+                            foreach ($arguments['options'] as $key => $label) {
+                                $options_markup .= sprintf('<option value="%s" %s>%s</option>', $key, selected($value, $key, false), $label);
+                            }
+                            printf('<select name="%1$s" id="%1$s">%2$s</select>', $arguments['uid'], $options_markup);
+                        }
+                        break;
+                endswitch;
+
+                if ($input_label = $arguments['input_label']) {
+                    printf('<label for="%1$s">%2$s</label>', $arguments['uid'], $input_label);
+                }
+
+                if ($supplimental = $arguments['description']) {
+                    printf('<p class="description">%s</p>', $supplimental); // Show it
+                }
+            }
         }
-    }
 
-    
-    public function setup_fields() {
-        $fields = array(
-            array(
-                'uid' => 'our_first_field',
-                'label' => 'Awesome Date',
-                'section' => 'our_first_section',
-                'type' => 'text',
-                'options' => false,
-                'placeholder' => 'DD/MM/YYYY',
-                'helper' => 'Does this help?',
-                'supplemental' => 'I am underneath!',
-                'default' => '01/01/2015'
-            )
-        );
-        foreach( $fields as $field ){
-            add_settings_field( $field['uid'], $field['label'], array( $this, 'field_callback' ), 'smashing_fields', $field['section'], $field );
-            register_setting( 'smashing_fields', $field['uid'] );
-        }
-    }
-    
 
-    public function field_callback( $arguments ) {
-        echo '<input name="our_first_field" id="our_first_field" type="text" value="' . get_option( 'our_first_field' ) . '" />';
-        register_setting( 'smashing_fields', 'our_first_field' );
-    }
-}
-new PluginConfig();
+
+        new PluginConfig();

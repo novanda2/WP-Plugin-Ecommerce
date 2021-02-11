@@ -128,4 +128,18 @@ class Products
     {
         register_taxonomy('collections', array($this->products->slug), $this->products->posts->custom_taxonomies);
     }
+
+    public static function graphql_init()
+    {
+        add_filter('register_post_type_args', function ($args, $post_type) {
+
+            if ('products' === $post_type) {
+                $args['show_in_graphql'] = true;
+                $args['graphql_single_name'] = 'product';
+                $args['graphql_plural_name'] = 'products';
+            }
+
+            return $args;
+        }, 10, 2);
+    }
 }

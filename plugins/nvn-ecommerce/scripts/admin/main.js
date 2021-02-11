@@ -52,9 +52,9 @@ jQuery(document).ready(function ($) {
 
     /**show selected image when first loaded post page */
     const ShowSelectedImage = () => {
-        const input = $('.nvn-uploader__input-images').val().split(',')
+        const input = $('.nvn-uploader__input-images').val()?.split(',')
         // fix bug empty string in first array
-        const newInput = input.filter(i => i !== "")
+        const newInput = input?.filter(i => i !== "")
         previewImages = newInput
         addImageToPreview(previewImages)
     }

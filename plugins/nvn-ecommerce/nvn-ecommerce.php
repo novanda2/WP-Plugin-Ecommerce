@@ -26,6 +26,9 @@ require_once(PLUGIN_DIR . 'class.product-comments.php');
 require_once(PLUGIN_DIR . 'class.permalink.php');
 
 
+$allow_rating = get_option('product_review_rating');
+
+
 $products_params = (object)[
     'slug' => 'products',
     'posts' => (object)array(
@@ -72,18 +75,13 @@ $products_params = (object)[
 new Products($products_params);
 
 // comments
-ProductComments::init();
+if ($allow_rating)
+    ProductComments::init();
+else
+    ProductComments::destroy();
 
+// custom permalink
 CustomPermalink::init();
 
 // graphql
-add_filter('register_post_type_args', function ($args, $post_type) {
-
-    if ('products' === $post_type) {
-        $args['show_in_graphql'] = true;
-        $args['graphql_single_name'] = 'product';
-        $args['graphql_plural_name'] = 'products';
-    }
-
-    return $args;
-}, 10, 2);
+Products::graphql_init();

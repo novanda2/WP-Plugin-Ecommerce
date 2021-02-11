@@ -1,43 +1,8 @@
-/**
- * 
- * disable up and down position,
- * for product field metabox
- * cause, not necessary
- * break style 
- * 
- * 
- * looping for minimize repetation
- * when we need some btton to do same thing
- * in future
- * 
- * 
- * not work for now,
- * i'll fix it later
- * 
- */
-
-
-const adminPostDisabledButton = [];
-
-const adminPostDisabledButtonUp = document.querySelector('[aria-describedby="products_fields-handle-order-higher-description"]')
-const adminPostDisabledButtonDown = document.querySelector('[aria-describedby="products_fields-handle-order-lower-description"]')
-
-
-adminPostDisabledButton.push(adminPostDisabledButtonUp, adminPostDisabledButtonDown);
-
-
-adminPostDisabledButton.forEach(button => {
-    if (button)
-        button.style.visibility = "hidden"
-});
-
-
-
-
-
-
 jQuery(document).ready(function ($) {
 
+    $("#postbox-container-2").draggable({ disabled: true })
+    $("#normal-sortables").draggable({ disabled: true });
+    $("#products_detail_fields").draggable({ disabled: true });
     /**
      * 
      * 
@@ -215,4 +180,7 @@ jQuery(document).ready(function ($) {
      * input 
      * price
      */
+
+
+
 });

@@ -87,5 +87,3 @@ add_filter('register_post_type_args', function ($args, $post_type) {
 
     return $args;
 }, 10, 2);
-
-

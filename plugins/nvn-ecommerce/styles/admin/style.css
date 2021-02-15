@@ -96,3 +96,7 @@
   font-size: 21px;
   margin-bottom: 10px;
 }
+
+#images-arr {
+  display: none;
+}

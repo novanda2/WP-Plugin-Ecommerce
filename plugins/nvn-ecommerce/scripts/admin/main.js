@@ -54,7 +54,7 @@ jQuery(document).ready(function ($) {
 
     /**show selected image when first loaded post page */
     const ShowSelectedImage = () => {
-        const input = $('.nvn-uploader__input-images input').val()?.split(',')
+        const input = $('.nvn-uploader__input-images textarea').val()?.split(',')
         // fix bug empty string in first array
         const newInput = input?.filter(i => i !== "")
         previewImages = newInput
@@ -95,7 +95,7 @@ jQuery(document).ready(function ($) {
 
     /** function change input value */
     const changeInputValue = (newInputVal) => {
-        const input = $('.nvn-uploader__input-images input')
+        const input = $('.nvn-uploader__input-images textarea')
         if (input) {
             newInputVal = previewImages.join(',')
             input.val(newInputVal)

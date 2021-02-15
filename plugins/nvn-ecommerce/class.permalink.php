@@ -4,12 +4,12 @@ class CustomPermalink
 {
     public static function init()
     {
-        /**
-         * in url of single product
-         * change %collection% 
-         * to taxononomies
-         * return the first taxonomies
-         */
+        // /**
+        //  * in url of single product
+        //  * change %collection% 
+        //  * to taxononomies
+        //  * return the first taxonomies
+        //  */
 
         add_filter('post_type_link', 'change_dynamic_url_to_tax', 1, 2);
         function change_dynamic_url_to_tax($post_link, $post)
@@ -24,14 +24,12 @@ class CustomPermalink
         }
 
 
-
-
-        /**
-         * 
-         * change permalink sturcture in settings
-         * and flush
-         * 
-         */
+        // /**
+        //  * 
+        //  * change permalink sturcture in settings
+        //  * and flush
+        //  * 
+        //  */
 
 
         add_action('init', 'set_custom_permalink_structure');
@@ -44,7 +42,7 @@ class CustomPermalink
             $wp_rewrite->set_permalink_structure('blog/%postname%/');
 
             //Set the option
-            update_option("rewrite_rules", FALSE);
+            update_option("rewrite_rules", false);
 
             //Flush the rules and tell it to write htaccess
             $wp_rewrite->flush_rules(true);

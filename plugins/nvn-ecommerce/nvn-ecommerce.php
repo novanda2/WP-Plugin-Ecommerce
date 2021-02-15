@@ -48,7 +48,7 @@ $products_params = (object)[
             'supports' => array('title', 'editor', 'thumbnail', 'comments'),
             'graphql_single_name' => 'product',
             'graphql_plural_name' => 'products',
-            'rewrite' => array('slug' => '%collections%/products', 'with_front' => false)
+            'rewrite' => array('slug' => 'collections/%collections%/products', 'with_front' => false)
 
         ],
         'custom_field' => array(
@@ -61,9 +61,7 @@ $products_params = (object)[
                 'template' => '/templates/metabox/class.product-detail.php'
             ),
         ),
-        'custom_field_metaboxio', array(
-            
-        ),
+        'custom_field_metaboxio', array(),
         'custom_taxonomies' => array(
             'labels' => array(
                 'name' => 'Product Category',
@@ -96,3 +94,23 @@ CustomPermalink::init();
 
 // graphql
 Products::graphql_init();
+
+// $PageGuid = site_url() . "/my-page-req1";
+// $my_post  = array(
+//     'post_title'     => 'My page Reql',
+//     'post_type'      => 'page',
+//     'post_name'      => 'my-page',
+//     'post_content'   => 'This is my page reql.',
+//     'post_status'    => 'publish',
+//     'comment_status' => 'closed',
+//     'ping_status'    => 'closed',
+//     'post_author'    => 1,
+//     'menu_order'     => 0,
+//     'guid'           => $PageGuid
+// );
+
+// $PageID = wp_insert_post($my_post, FALSE); // Get Post ID - FALSE to return 0 instead of wp_error.
+
+register_activation_hook(PLUGIN_WITH_CLASSES__FILE__,  function(){
+    wp_insert_post(array('post_type' => 'page', 'post_title' => 'checkout'));
+});

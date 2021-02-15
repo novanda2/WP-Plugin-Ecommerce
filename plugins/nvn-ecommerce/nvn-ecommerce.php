@@ -25,6 +25,7 @@ require_once(PLUGIN_DIR . 'class.products.php');
 require_once(PLUGIN_DIR . 'class.product-comments.php');
 require_once(PLUGIN_DIR . 'class.permalink.php');
 require_once(PLUGIN_DIR . 'class.metaboxio.php');
+require_once(PLUGIN_DIR . 'pages/class.page-checkout.php');
 
 
 $allow_rating = get_option('product_review_rating');
@@ -68,7 +69,7 @@ $products_params = (object)[
                 'singular_name' => 'Product Categories'
             ),
             // 'hierarchical' => true,
-            'rewrite' => array('slug' => 'collection', 'with_front' => false),
+            'rewrite' => array('slug' => 'collections', 'with_front' => false),
             'show_in_graphql' => true,
             'graphql_single_name' => 'documentTag',
             'graphql_plural_name' => 'documentTags',
@@ -95,22 +96,23 @@ CustomPermalink::init();
 // graphql
 Products::graphql_init();
 
-// $PageGuid = site_url() . "/my-page-req1";
-// $my_post  = array(
-//     'post_title'     => 'My page Reql',
-//     'post_type'      => 'page',
-//     'post_name'      => 'my-page',
-//     'post_content'   => 'This is my page reql.',
-//     'post_status'    => 'publish',
-//     'comment_status' => 'closed',
-//     'ping_status'    => 'closed',
-//     'post_author'    => 1,
-//     'menu_order'     => 0,
-//     'guid'           => $PageGuid
-// );
+// checkout
+$checkout = new CheckoutPage;
 
-// $PageID = wp_insert_post($my_post, FALSE); // Get Post ID - FALSE to return 0 instead of wp_error.
 
-register_activation_hook(PLUGIN_WITH_CLASSES__FILE__,  function(){
-    wp_insert_post(array('post_type' => 'page', 'post_title' => 'checkout'));
-});
+
+
+
+
+
+
+
+
+
+add_action('wp_enqueue_scripts', 'add_scripts');
+
+function add_scripts()
+{
+    wp_enqueue_style('ecommerce-cart', PLUGIN_URL . 'styles/site/cart.css');
+    wp_enqueue_script('ecommerce-cart', PLUGIN_URL . 'scripts/site/cart.js', array(), rand(), true);
+}

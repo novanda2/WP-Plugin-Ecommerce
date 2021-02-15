@@ -15,27 +15,7 @@ class MetaboxIO
     public static function init()
     {
         add_filter('rwmb_meta_boxes', function ($meta_boxes) {
-            $meta_boxes[] = [
-                'title' => 'Extra Fields',
-                'id' => 'extra-fields',
-                'post_types' => [
-                    0 => 'post',
-                ],
-                'context' => 'after_title',
-                'priority' => 'high',
-                'autosave' => true,
-                'fields' => [
-                    [
-                        'id' => 'a_random_number',
-                        'name' => 'A Random Number',
-                        'type' => 'number',
-                        'std' => 5,
-                        'columns' => 2,
-                        'size' => 3,
-                        'graphql_name' => 'zzzzzzzzzzimagesShow',
-                    ],
-                ],
-            ];
+            /** hidden */
             // products images
             $meta_boxes[] = [
                 'title'      => 'Images Arr',
@@ -51,6 +31,22 @@ class MetaboxIO
                 ],
             ];
 
+            // products price
+            $meta_boxes[] = [
+                'title'      => 'Price Hidden',
+                'post_types' => 'products',
+                'fields'     => [
+                    [
+                        'id'       => 'product_price',
+                        'type'     => 'text',
+                        'class' => 'nvn-metabox__product-price__input-value',
+                        'std' => '',
+                        'graphql_name' => 'ProductPrice',
+                    ],
+                ],
+            ];
+
+            /** show */
             $meta_boxes[] = [
                 'title'      => 'Product Images',
                 'post_types' => 'products',
@@ -63,17 +59,17 @@ class MetaboxIO
                     ],
                 ],
             ];
-            // end products images
 
             $meta_boxes[] = [
-                'title'      => 'Product Images',
+                'title'      => 'Product Price',
                 'post_types' => 'products',
                 'before' => 'asd',
                 'fields'     => [
                     [
-                        'id'       => 'images_show',
-                        'type'     => 'custom_html',
-                        'callback' => 'multiple_image_uploader',
+                        'id'       => 'product_price_show',
+                        'type'     => 'text',
+                        'class'    => 'nvn-metabox__product-price__input'
+                        // 'callback' => 'product',
                     ],
                 ],
             ];

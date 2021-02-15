@@ -151,8 +151,8 @@ jQuery(document).ready(function ($) {
      * price
      */
 
-    const inputPrice = document.querySelector('.nvn-metabox__product-price__input')
-    const inputPriceValue = document.querySelector('.nvn-metabox__product-price__input-value')
+    const inputPrice = document.querySelector('.nvn-metabox__product-price__input input')
+    const inputPriceValue = document.querySelector('.nvn-metabox__product-price__input-value input')
 
     function convertToRupiah(angka) {
         var rupiah = '';
@@ -172,7 +172,6 @@ jQuery(document).ready(function ($) {
             if (/\d/.test(inputPrice.value)) {
                 inputPrice.value = convertToRupiah(parseInt(inputPrice.value.replace(/,.*|[^0-9]/g, ''), 10))
                 inputPriceValue.value = parseInt(inputPrice.value.replace(/,.*|[^0-9]/g, ''), 10)
-                console.log(inputPriceValue.value)
             }
             else
                 inputPrice.value = null

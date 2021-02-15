@@ -97,6 +97,7 @@
   margin-bottom: 10px;
 }
 
-#images-arr {
+#images-arr,
+#price-hidden {
   display: none;
 }

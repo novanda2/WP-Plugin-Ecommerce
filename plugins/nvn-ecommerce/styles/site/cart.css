@@ -44,3 +44,13 @@
   list-style: none;
   padding: 0;
 }
+
+.add-to-cart__html-open {
+  position: absolute;
+  top: 5vw;
+  right: 5vw;
+}
+
+.add-to-cart__html__list-single__delete {
+  cursor: pointer;
+}

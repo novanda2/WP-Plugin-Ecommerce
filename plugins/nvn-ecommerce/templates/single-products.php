@@ -6,7 +6,8 @@ $allow_review = get_option('product_review');
 // mettaboxio
 $product_images_metaboxio = rwmb_get_value('images_Arr');
 $product_images_metaboxio_arr =  explode(',', $product_images_metaboxio);
-$product_price_metaboxio = rwmb_get_value('product_price_show');
+$product_price_metaboxio = rwmb_get_value('product_price');
+$product_price_metaboxio_rupiah = rwmb_get_value('product_price_show');
 
 $product_images = get_post_meta($post->ID, '_product_images', true);
 $product_price = get_post_meta($post->ID, '_product_price', true);
@@ -31,11 +32,15 @@ get_header(); ?>
 
 
     <div class="add-to-cart">
-        <input type="number" class="add-to-cart__value">
+        <input type="number" class="add-to-cart__value" value="1">
         <input type="hidden" class="add-to-cart__id" value="<?= $post->ID ?>">
         <input type="hidden" class="add-to-cart__title" value="<?= the_title() ?>">
         <input type="hidden" class="add-to-cart__price" value="<?= $product_price_metaboxio ?>">
-        <button type="button" class="add-to-cart__button">add to cart (<?= $product_price_metaboxio ?>)</button>
+        <button type="button" class="add-to-cart__button">add to cart (<?= $product_price_metaboxio_rupiah ?>)</button>
+
+
+        
+        </form>
     </div>
 
 </div>
@@ -44,4 +49,4 @@ get_header(); ?>
 <?php
 if ($allow_review)
     comments_template();
-get_footer();
+get_footer();   

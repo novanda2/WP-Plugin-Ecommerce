@@ -25,7 +25,9 @@ require_once(PLUGIN_DIR . 'class.products.php');
 require_once(PLUGIN_DIR . 'class.product-comments.php');
 require_once(PLUGIN_DIR . 'class.permalink.php');
 require_once(PLUGIN_DIR . 'class.metaboxio.php');
+
 require_once(PLUGIN_DIR . 'pages/class.page-checkout.php');
+require_once(PLUGIN_DIR . 'pages/class.page-my-account.php');
 
 
 $allow_rating = get_option('product_review_rating');
@@ -99,6 +101,8 @@ Products::graphql_init();
 // checkout
 $checkout = new CheckoutPage;
 
+$my_account = new MyAccout;
+
 
 
 
@@ -113,6 +117,14 @@ add_action('wp_enqueue_scripts', 'add_scripts');
 
 function add_scripts()
 {
+    
+    wp_enqueue_style('ecommerce-styles', PLUGIN_URL . 'styles/site/styles.css');
     wp_enqueue_style('ecommerce-cart', PLUGIN_URL . 'styles/site/cart.css');
     wp_enqueue_script('ecommerce-cart', PLUGIN_URL . 'scripts/site/cart.js', array(), rand(), true);
 }
+
+
+
+add_action('init', function () {
+    wp_create_user('johndoe', 'passwordgoeshere', 'john.doe@example.com');
+});

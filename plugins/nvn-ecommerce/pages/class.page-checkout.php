@@ -2,20 +2,25 @@
 
 class CheckoutPage
 {
+    public $id = 9991;
     public $post_title = "Checkout";
 
     public function __construct()
     {
-        $this->init();
-
+        register_activation_hook(PLUGIN_WITH_CLASSES__FILE__, [$this, 'init']);
+        register_deactivation_hook(PLUGIN_WITH_CLASSES__FILE__, [$this, 'destroy']);
         add_filter('page_template', [$this, 'set_single_template']);
     }
 
     public function init()
     {
-        register_activation_hook(PLUGIN_WITH_CLASSES__FILE__,  function () {
-            wp_insert_post(array('post_type' => 'page', 'post_title' => $this->post_title, 'post_status' => 'publish'));
-        });
+        $id = wp_insert_post(array('import_id' => $this->id, 'post_type' => 'page', 'post_title' => $this->post_title, 'post_status' => 'publish'));
+        $this->id = $id;
+    }
+
+    public function destroy()
+    {
+        wp_delete_post($this->id, true);
     }
 
     function set_single_template($template)
@@ -28,30 +33,3 @@ class CheckoutPage
         return $template;
     }
 }
-
-
-// delete post
- // function delete_all_posts_from_author($post)
-        // {
-
-
-        //     global $post;
-        //     $id = $post->ID;
-        //     if (get_post_type($id) == "page") {
-
-        //         $posts = get_posts(
-        //             array(
-        //                 'posts_per_page'    => -1,
-        //                 'post_status'       => 'publish',
-        //                 'post_type'         => 'page',
-        //             )
-        //         );
-
-        //         foreach ($posts as $post) {
-        //             if ($post->post_title === "Checkout")
-        //                 wp_delete_post($post->ID, true);
-        //         }
-        //     }
-        // }
-
-        // add_action('the_post',  'delete_all_posts_from_author', 10, 1);

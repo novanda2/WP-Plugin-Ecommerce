@@ -64,7 +64,7 @@ jQuery(document).ready(function ($) {
     /**function actually show previe image */
     const addImageToPreview = (imageArr) => {
         const PreviewImagesParentElement = document.querySelector('#nvn-uploader__preview-image__parent')
-        const previewImagesHTML = imageArr.map((image => `
+        const previewImagesHTML = imageArr?.map((image => `
             <div class="nvn-uploader__preview-image">
                 <div class="nvn-uploader__preview-image__delete">
                     <button 
@@ -78,15 +78,16 @@ jQuery(document).ready(function ($) {
             </div>
         `))
 
+        if (PreviewImagesParentElement)
         // if we have img in Arr
-        if (imageArr.length == 0)
-            PreviewImagesParentElement.innerHTML = `
+            if (imageArr?.length == 0)
+                PreviewImagesParentElement.innerHTML = `
             <div class="nvn-uploader__preview-image__no-image">
                 it's quiet here, let's add some images
             </div>
             `
-        else
-            PreviewImagesParentElement.innerHTML = previewImagesHTML.join(' ')
+            else
+                PreviewImagesParentElement.innerHTML = previewImagesHTML?.join(' ')
 
         // we only can run this func after previewImagesHTML rendered in DOM
         deleteImagesFromArr()

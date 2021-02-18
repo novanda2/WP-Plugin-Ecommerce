@@ -35,6 +35,18 @@ body {
   text-align: left;
 }
 
+.auth-form__info {
+  font-size: 12px;
+}
+
+.auth-form__info.warning {
+  color: #ffc107 !important;
+}
+
+.auth-form__info.danger {
+  color: #dc3545 !important;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="number"] {

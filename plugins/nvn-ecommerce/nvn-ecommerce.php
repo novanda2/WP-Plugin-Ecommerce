@@ -122,9 +122,3 @@ function add_scripts()
     wp_enqueue_style('ecommerce-cart', PLUGIN_URL . 'styles/site/cart.css');
     wp_enqueue_script('ecommerce-cart', PLUGIN_URL . 'scripts/site/cart.js', array(), rand(), true);
 }
-
-
-
-add_action('init', function () {
-    wp_create_user('johndoe', 'passwordgoeshere', 'john.doe@example.com');
-});

@@ -6,39 +6,32 @@ class SignUp
     public $email = '';
     public $password = '';
     public $confirm_password = '';
-    public $error = [
-        'ecom-username' => '',
-        'ecom-email' => '',
-        'ecom-password' => '',
-        'ecom-confirm-password' => '',
-    ];
+    public $error = [];
     public $valid = false;
 
     public function __construct()
     {
         $this->form();
 
-        if ($this->validation())
-            $this->create_user();
+        $this->html();
     }
 
     public function form()
     {
         if ($_POST) {
-            $this->nickname = $_POST['ecom-username'];
-            $this->email = $_POST['ecom-email'];
-            $this->password = $_POST['ecom-password'];
-            $this->confirm_password = $_POST['ecom-confirm-password'];
-            $this->validation();
-        }
+            $this->nickname = $_POST['ecom-nickname'] ?? '';
+            $this->email = $_POST['ecom-email'] ?? '';
+            $this->password = $_POST['ecom-password'] ?? '';
+            $this->confirm_password = $_POST['ecom-confirm-password'] ?? '';
 
-        $this->html();
+            $this->validate();
+        }
     }
 
-    public function validation()
+    public function validate()
     {
         if (!preg_match('/^[ \w]+$/', $this->nickname)) {
-            $this->error['ecom-username'] = 'please fill with valid name';
+            $this->error['ecom-nickname'] = 'please fill with valid name';
             return;
         }
 
@@ -58,15 +51,27 @@ class SignUp
             return;
         }
 
-        return true;
+        $this->create_user();
     }
 
     public function create_user()
     {
-        var_dump('yey');
-        wp_create_user($this->nickname, $this->password, $this->email);
-        if (wp_redirect($url)) {
-            exit;
+        $user_data = array(
+            'user_login' => $this->nickname,
+            'user_pass' => $this->password,
+            'user_email' => $this->email,
+            'show_admin_bar_front' => 'false',
+            'roles' => 'contributor',
+        );
+
+        $user = wp_insert_user($user_data);
+
+        if (is_wp_error($user))
+            $this->error['register'] = $user->get_error_message();
+        else {
+            wp_update_user(array('ID' => $user, 'role' => 'contributor'));
+            wp_redirect('/my-account');
+            exit();
         }
     }
 
@@ -95,33 +100,33 @@ class SignUp
                             <div class="col-lg-12 auth-form">
                                 <form action="/my-account?action=signup" method="post">
                                     <div class="form-group">
-                                        <label class="form-control-label">USERNAME</label>
-                                        <input type="text" name="ecom-username" value="<?= $this->nickname ? $this->nickname : '' ?>" class="form-control" autocomplete="on" required>
-                                        <span class="text-warning"><?= $this->error['ecom-username'] ?></span>
+                                        <label class="form-control-label">NICKNAME</label>
+                                        <input type="text" name="ecom-nickname" value="<?= $this->nickname ?? '' ?>" class="form-control" autocomplete="on" required>
+                                        <span class="auth-form__info warning"><?= $this->error['ecom-nickname'] ?? '' ?></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">EMAIL</label>
-                                        <input type="email" name="ecom-email" value="<?= $this->email ? $this->email : '' ?>" class="form-control" autocomplete="on" required>
-                                        <span class="text-warning"><?= $this->error['ecom-email'] ?></span>
+                                        <input type="email" name="ecom-email" value="<?= $this->email ?? '' ?>" class="form-control" autocomplete="on" required>
+                                        <span class="auth-form__info warning"><?= $this->error['ecom-email'] ?? '' ?></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">PASSWORD</label>
-                                        <input type="password" name="ecom-password" <?= $this->password ?> class="form-control" autocomplete="on" required>
-                                        <span class="text-warning"><?= $this->error['ecom-password'] ?></span>
+                                        <input type="password" name="ecom-password" <?= $this->password ?? '' ?> class="form-control" autocomplete="on" required>
+                                        <span class="auth-form__info warning"><?= $this->error['ecom-password'] ?? '' ?></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">CONFIRM PASSWORD</label>
                                         <input type="password" name="ecom-confirm-password" class="form-control" autocomplete="on" required>
-                                        <span class="text-warning"><?= $this->error['ecom-confirm-password'] ?></span>
+                                        <span class="auth-form__info warning"><?= $this->error['ecom-confirm-password'] ?? '' ?></span>
                                     </div>
 
                                     <div class="col-lg-12 authbttm">
                                         <div class="col-lg-12 auth-btm auth-text">
-                                            <!-- Error Message -->
+                                            <span class="auth-form__info warning"><?= $this->error['register'] ?? '' ?></span>
                                         </div>
                                         <div class="col-lg-12 auth-btm auth-button">
-                                            <button type="submit" class="btn btn-outline-primary">LOGIN</button>
-                                            <button type="submit" class="btn btn-outline-primary"><?php var_dump($this->validation()) ?></button>
+                                            <a href="/my-account?action=signin" class="btn text-white">SIGNIN</a>
+                                            <button type="submit" class="btn btn-outline-primary">SIGNUP</button>
                                         </div>
                                     </div>
                                 </form>

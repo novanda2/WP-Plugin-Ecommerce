@@ -29,6 +29,8 @@ require_once(PLUGIN_DIR . 'class.metaboxio.php');
 require_once(PLUGIN_DIR . 'pages/class.page-checkout.php');
 require_once(PLUGIN_DIR . 'pages/class.page-my-account.php');
 
+require_once(PLUGIN_DIR . 'post-type/class.order.php');
+
 
 $allow_rating = get_option('product_review_rating');
 
@@ -52,7 +54,6 @@ $products_params = (object)[
             'graphql_single_name' => 'product',
             'graphql_plural_name' => 'products',
             'rewrite' => array('slug' => 'collections/%collections%/products', 'with_front' => false)
-
         ],
         'custom_field' => array(
             'name' => 'product detail',
@@ -101,10 +102,11 @@ Products::graphql_init();
 // checkout
 $checkout = new CheckoutPage;
 
+// my account, login, register
 $my_account = new MyAccout;
 
-
-
+// order post type
+new Order;
 
 
 
@@ -117,8 +119,25 @@ add_action('wp_enqueue_scripts', 'add_scripts');
 
 function add_scripts()
 {
-    
+
     wp_enqueue_style('ecommerce-styles', PLUGIN_URL . 'styles/site/styles.css');
     wp_enqueue_style('ecommerce-cart', PLUGIN_URL . 'styles/site/cart.css');
     wp_enqueue_script('ecommerce-cart', PLUGIN_URL . 'scripts/site/cart.js', array(), rand(), true);
 }
+
+
+
+
+
+
+
+// add_action('init', function () {
+//     $post = array(
+//         'post_type' => 'orders',
+//         'post_title' => 'asd',
+//         'post_status' => 'publish',
+//         'supports' => ''
+//     );
+//     wp_insert_post($post);
+// });
+

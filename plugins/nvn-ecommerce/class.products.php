@@ -8,8 +8,8 @@ class Products
     {
         $this->products = $products;
         // hook
-        register_activation_hook(PLUGIN_WITH_CLASSES__FILE__,  [$this, 'init']);
-        register_deactivation_hook(PLUGIN_WITH_CLASSES__FILE__,  [$this, 'destroy']);
+        // register_activation_hook(PLUGIN_WITH_CLASSES__FILE__,  [$this, 'init']);
+        // register_deactivation_hook(PLUGIN_WITH_CLASSES__FILE__,  [$this, 'destroy']);
 
         // script
         add_action('admin_enqueue_scripts', [$this, 'add_scripts']);

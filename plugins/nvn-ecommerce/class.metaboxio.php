@@ -74,6 +74,69 @@ class MetaboxIO
                 ],
             ];
 
+            /** 
+             * 
+             * 
+             * order page
+             * 
+             */
+
+            $meta_boxes[] = array(
+                'title'      => 'Personal Information',
+                'post_types' => 'orders',
+
+                'fields' => array(
+                    array(
+                        'name'  => 'User ID',
+                        'id'    => 'order_user_id',
+                        'type'  => 'number',
+                    ),
+                    array(
+                        'name'  => 'Full name',
+                        'id'    => 'order_name',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'Email',
+                        'id'    => 'order_email',
+                        'type'  => 'email',
+                    ),
+                    array(
+                        'name'  => 'Phone Number',
+                        'id'    => 'order_phone',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'Address',
+                        'id'    => 'order_address',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'City',
+                        'id'    => 'order_city',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'Postal Code',
+                        'id'    => 'order_postalcode',
+                        'type'  => 'text',
+                    ),
+                )
+            );
+
+            $meta_boxes[] = array(
+                'title'      => 'Product Information',
+                'post_types' => 'orders',
+
+                'fields' => array(
+                    array(
+                        'name'  => 'Products',
+                        'id'    => 'order_products',
+                        'type'  => 'textarea',
+                    ),
+                )
+            );
+
             return $meta_boxes;
         });
 

@@ -1,9 +1,16 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "@babel/core": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
     "babel-loader": "^8.2.2",
+    "core-js": "^3.9.0",
     "gulp": "^4.0.2",
+    "regenerator-runtime": "^0.13.7",
     "webpack-stream": "^6.1.2"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.17",
+    "@babel/runtime-corejs3": "^7.12.18",
+    "alpinejs": "^2.8.0"
   }
 }

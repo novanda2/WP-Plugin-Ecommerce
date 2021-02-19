@@ -1,5 +1,6 @@
 # dependencies
 node_modules
+yarn.lock
 next-ecommerce/node_modules
 next-ecommerce/.pnp
 next-ecommerce/.pnp.js

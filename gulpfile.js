@@ -4,7 +4,7 @@ const { task, parallel } = gulp;
 
 const webpackConfig = {
     watch: true,
-    mode: 'production',
+    mode: 'development',
     output: { filename: 'main.js' },
     module: {
         rules: [
@@ -12,7 +12,7 @@ const webpackConfig = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env'] 
+                        presets: ['@babel/preset-env'],
                     }
                 }
             }
@@ -21,7 +21,7 @@ const webpackConfig = {
 }
 
 function clientjs(cb) {
-    gulp.src('src/site/js/main.js')
+    gulp.src('src/site/js/_main.js')
         .pipe(webpack(webpackConfig))
         .pipe(gulp.dest('plugins/nvn-ecommerce/scripts/site/'));
     cb()
@@ -29,7 +29,7 @@ function clientjs(cb) {
 
 
 function adminjs(cb) {
-    gulp.src('src/admin/js/main.js')
+    gulp.src('src/admin/js/_main.js')
         .pipe(webpack(webpackConfig))
         .pipe(gulp.dest('plugins/nvn-ecommerce/scripts/admin/'));
     cb()

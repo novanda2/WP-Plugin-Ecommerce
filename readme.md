@@ -1,21 +1,21 @@
-### Features
+## Plugin Features
 
-- plugin options
-- custom css, and js
-- custom post type, taxonomies, metabox
-- custom product archive template
-- custom product single template
-- admin -> metabox -> multiple product image uploader
-- comments -> user rating
-- graphql
-- demo with nextjs
+- User Auth
+- Products
+- Cart
+- Checkout
+- Payments (next update)
+- AJAX Checkout, Payments, Orders(Admin)
 
-### Next Features
+### App Features
 
-- add more helpful feature...
+- Javascript Compiler
+- SCSS Compiler (next update)
+- Tailwindcss (next update, maybe, if necessary)
+- GraphQL Nextjs Example
 
 ## Required Plugins
 
-- Metabox (default wp metabox doesnt support graphql, ill add option to use metabox-io or wp-metabox in plugin option in the future)
-- WP-Graphql
-- WP-Graphql-Metabox
+- Metabox
+- WP-Graphql (nextjs)
+- WP-Graphql-Metabox (add metabox.io value to graphql)

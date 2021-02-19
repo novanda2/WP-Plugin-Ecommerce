@@ -3,6 +3,7 @@ if (localStorage.getItem('products')) {
     products = JSON.parse(localStorage.getItem('products'));
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const cart = document.querySelector('.add-to-cart__html')
     const cartOpen = document.querySelector('.add-to-cart__html-open')
@@ -87,8 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cartSubmit.addEventListener('click', () => {
         submitCart()
     })
-
-
 })
 
 // use `` got some hidden error

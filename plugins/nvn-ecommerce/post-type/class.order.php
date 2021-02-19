@@ -68,7 +68,7 @@ class OrderPost
                 wp_reset_postdata();
 
                 wp_enqueue_style('orders', PLUGIN_URL . 'styles/site/orders.css');
-                wp_enqueue_script('orders', PLUGIN_URL . 'scripts/admin/orders.js', array(), '1.0.0');
+                wp_enqueue_script('orders', PLUGIN_URL . 'scripts/admin/main.js', array(), '1.0.0');
                 wp_localize_script(
                     'orders',
                     'orders_data',

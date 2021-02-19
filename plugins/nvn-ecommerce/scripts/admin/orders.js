@@ -1,20 +1,25 @@
 const { orders } = orders_data;
-console.log(orders)
-
-document.querySelector('#page').classList.add('hidden')
-document.querySelector('#wpadminbar').classList.add('hidden')
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelector('.add-to-cart__html-open').classList.add('hidden')
+    // document.querySelector('#page').classList.add('hidden')
+    // document.querySelector('#wpadminbar').classList.add('hidden')
+    document.querySelector('style[media="screen"]').innerHTML  = ''
+    // document.querySelector('.add-to-cart__html-open').classList.add('hidden')
 })
+
+
 function datatables() {
 
 
 
     return {
         headings: [{
-            'key': 'userId',
-            'value': 'User ID'
+            'key': 'orderId',
+            'value': 'Order ID'
+        },
+        {
+            'key': 'orderTitle',
+            'value': 'Order Title'
         },
         {
             'key': 'name',

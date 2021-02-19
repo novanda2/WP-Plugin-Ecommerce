@@ -1,12 +1,10 @@
 <?php
 
-require_once(PLUGIN_DIR . 'pages/class.page-order.php');
-new OrderPage;
-
-class Order
+class OrderPost
 {
     public $slug = 'orders';
     public $args;
+
 
     public function __construct()
     {
@@ -53,7 +51,8 @@ class Order
 
                 while ($query->have_posts()) : $query->the_post();
                     $data = array(
-                        'userId' => rwmb_get_value('order_user_id'),
+                        'title' => get_the_title(),
+                        'orderId' => rwmb_get_value('order_id'),
                         'products' => rwmb_get_value('order_products'),
                         'name' => rwmb_get_value('order_name'),
                         'email' => rwmb_get_value('order_email'),
@@ -68,8 +67,8 @@ class Order
 
                 wp_reset_postdata();
 
-
-                wp_enqueue_script('orders', PLUGIN_URL . 'scripts/admin/orders.js', array(), '1.0.0', true);
+                wp_enqueue_style('orders', PLUGIN_URL . 'styles/site/orders.css');
+                wp_enqueue_script('orders', PLUGIN_URL . 'scripts/admin/orders.js', array(), '1.0.0');
                 wp_localize_script(
                     'orders',
                     'orders_data',
@@ -79,6 +78,9 @@ class Order
                 );
             }
         });
+
+        if ($this->validate())
+            $this->add();
 
 
         add_action('admin_init', function () {
@@ -92,5 +94,33 @@ class Order
     public function init()
     {
         register_post_type($this->slug, $this->args);
+    }
+
+    public function validate()
+    {
+
+        return true;
+    }
+
+    public function add()
+    {
+        $this->validate();
+
+        global $wpdb;
+
+        $post_arr = array(
+            'post_title'   => 'Test post',
+            'post_content' => 'Test post content',
+            'post_status'  => 'publish',
+            'post_author'  => get_current_user_id(),
+            'meta_input'   => array(
+                'test_meta_key' => 'value of test_meta_key',
+            ),
+        );
+
+        $unique_key = 2;
+        if ($wpdb->get_var($wpdb->prepare("SELECT COUNT(`meta_value`) FROM $wpdb->postmeta WHERE `meta_value`=%s", $unique_key)) == 0) {
+            // var_dump('ok');
+        }
     }
 }

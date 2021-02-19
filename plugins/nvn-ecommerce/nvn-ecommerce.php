@@ -19,6 +19,8 @@ define('PLUGIN_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_WITH_CLASSES__FILE__', __FILE__);
 
 
+require_once(PLUGIN_DIR . 'post-type/class.order.php');
+require_once(PLUGIN_DIR . 'post-type/class.payment.php');
 
 require_once(PLUGIN_DIR . 'class.ecommerce-option.php');
 require_once(PLUGIN_DIR . 'class.products.php');
@@ -28,8 +30,10 @@ require_once(PLUGIN_DIR . 'class.metaboxio.php');
 
 require_once(PLUGIN_DIR . 'pages/class.page-checkout.php');
 require_once(PLUGIN_DIR . 'pages/class.page-my-account.php');
+require_once(PLUGIN_DIR . 'pages/class.page-order.php');
+require_once(PLUGIN_DIR . 'pages/class.page-payment.php');
+require_once(PLUGIN_DIR . 'pages/class.page-payment-form.php');
 
-require_once(PLUGIN_DIR . 'post-type/class.order.php');
 
 
 $allow_rating = get_option('product_review_rating');
@@ -106,38 +110,14 @@ $checkout = new CheckoutPage;
 $my_account = new MyAccout;
 
 // order post type
-new Order;
+$order = new OrderPost;
 
+// order page admin
+$orderpage = new OrderPage;
 
+// payment
+$payment = new PaymentPost;
+// $payment = new PaymentPage;
 
-
-
-
-
-
-add_action('wp_enqueue_scripts', 'add_scripts');
-
-function add_scripts()
-{
-
-    wp_enqueue_style('ecommerce-styles', PLUGIN_URL . 'styles/site/styles.css');
-    wp_enqueue_style('ecommerce-cart', PLUGIN_URL . 'styles/site/cart.css');
-    wp_enqueue_script('ecommerce-cart', PLUGIN_URL . 'scripts/site/cart.js', array(), rand(), true);
-}
-
-
-
-
-
-
-
-// add_action('init', function () {
-//     $post = array(
-//         'post_type' => 'orders',
-//         'post_title' => 'asd',
-//         'post_status' => 'publish',
-//         'supports' => ''
-//     );
-//     wp_insert_post($post);
-// });
-
+// // payment form
+// $paymentForm = new PaymentFormPage;

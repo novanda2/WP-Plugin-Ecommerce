@@ -87,8 +87,8 @@ class MetaboxIO
 
                 'fields' => array(
                     array(
-                        'name'  => 'User ID',
-                        'id'    => 'order_user_id',
+                        'name'  => 'Order ID',
+                        'id'    => 'order_id',
                         'type'  => 'number',
                     ),
                     array(

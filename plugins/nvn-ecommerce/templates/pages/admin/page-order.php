@@ -1,61 +1,22 @@
-<head>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        [x-cloak] {
-            display: none;
-        }
-
-        [type="checkbox"] {
-            box-sizing: border-box;
-            padding: 0;
-        }
-
-        .form-checkbox {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            -webkit-print-color-adjust: exact;
-            color-adjust: exact;
-            display: inline-block;
-            vertical-align: middle;
-            background-origin: border-box;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            flex-shrink: 0;
-            color: currentColor;
-            background-color: #fff;
-            border-color: #e2e8f0;
-            border-width: 1px;
-            border-radius: 0.25rem;
-            height: 1.2em;
-            width: 1.2em;
-        }
-
-        .form-checkbox:checked {
-            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-            border-color: transparent;
-            background-color: currentColor;
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
-</head>
-
 <?php
-
-get_header();
-
-get_footer();
+$user = wp_get_current_user();
+if (!in_array('administrator', (array) $user->roles)) {
+    wp_redirect('/');
+    exit();
+}
 ?>
 
-<body>
-    <div class="antialiased sans-serif bg-gray-200 h-screen">
-        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
-            <h1 class="text-3xl py-4 border-b mb-10">Order Tables</h1>
+<head>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    </style>
+    <?php wp_head() ?>
+</head>
 
+
+<body>
+    <div class="antialiased sans-serif bg-gray-200 min-h-screen pt-12">
+        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
+            <h1 class="text-3xl py-4 border-b mb-10">Product Orders</h1>
             <div x-show="selectedRows.length" class="bg-teal-200 fixed top-0 left-0 right-0 z-40 w-full shadow">
                 <div class="container mx-auto px-4 py-4">
                     <div class="flex md:items-center">
@@ -139,7 +100,7 @@ get_footer();
                             </tr>
                         </thead>
                         <tbody>
-                            <template x-for="user in users" :key="user.userId">
+                            <template x-for="user in users" :key="user.orderId">
 
                                 <?php
                                 $i = 0;
@@ -149,31 +110,34 @@ get_footer();
                                 <?php endwhile; ?>
                             <?php endif; ?>
 
-                            <tr>
+                            <tr class="hover:bg-gray-100 cursor-pointer">
                                 <td class="border-dashed border-t border-gray-200 px-3">
                                     <label class="text-teal-500 inline-flex justify-between items-center hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer">
-                                        <input type="checkbox" class="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline" :name="user.userId" @click="getRowDetail($event, user.userId)">
+                                        <input type="checkbox" class="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline" :name="user.orderId" @click="getRowDetail($event, user.orderId)">
                                     </label>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 userId">
-                                    <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.userId"></span>
+                                <td class="border-dashed border-t border-gray-200 orders__box userId">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.orderId"></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 firstName">
+                                <td class="border-dashed border-t border-gray-200 orders__box orderTitle">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.title"></span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 orders__box firstName">
                                     <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.name"></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 lastName">
+                                <td class="border-dashed border-t border-gray-200 orders__box lastName">
                                     <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.email"></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 emailAddress">
+                                <td class="border-dashed border-t border-gray-200 orders__box emailAddress">
                                     <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.phone"></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 gender">
+                                <td class="border-dashed border-t border-gray-200 orders__box address">
                                     <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.address"></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                <td class="border-dashed border-t border-gray-200 orders__box phoneNumber">
                                     <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.city"></span>
                                 </td>
-                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                <td class="border-dashed border-t border-gray-200 orders__box phoneNumber">
                                     <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.postalcode"></span>
                                 </td>
                             </tr>

@@ -1,27 +1,15 @@
 <?php
 
-class CheckoutPage
+class PaymentFormPage
 {
-    public $id = 9991;
-    public $post_title = "Checkout";
+    public $id = 9995;
+    public $post_title = "Payments Form";
 
     public function __construct()
     {
         register_activation_hook(PLUGIN_WITH_CLASSES__FILE__, [$this, 'init']);
         register_deactivation_hook(PLUGIN_WITH_CLASSES__FILE__, [$this, 'destroy']);
         add_filter('page_template', [$this, 'set_single_template']);
-
-
-        // cartjs
-        // script
-        add_action('wp_enqueue_scripts', 'add_scripts');
-        function add_scripts()
-        {
-
-            wp_enqueue_style('ecommerce-styles', PLUGIN_URL . 'styles/site/styles.css');
-            wp_enqueue_style('ecommerce-cart', PLUGIN_URL . 'styles/site/cart.css');
-            wp_enqueue_script('ecommerce-cart', PLUGIN_URL . 'scripts/site/cart.js', array(), rand(), true);
-        }
     }
 
     public function init()
@@ -40,7 +28,7 @@ class CheckoutPage
         global $post;
 
         if ($post->post_type = 'page' && $post->post_title == $this->post_title)
-            return PLUGIN_DIR . 'templates/pages/page-checkout.php';
+            return PLUGIN_DIR . 'templates/pages/page-payment-form.php';
 
         return $template;
     }

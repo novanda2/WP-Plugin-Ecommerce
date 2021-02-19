@@ -121,3 +121,12 @@ $payment = new PaymentPost;
 
 // // payment form
 // $paymentForm = new PaymentFormPage;
+
+add_action('wp_enqueue_scripts', function () {
+    // wp_enqueue_style('ecommerce-admin', PLUGIN_URL . 'styles/admin/style.css');
+    // wp_enqueue_script('ecommerce-admin', PLUGIN_URL . 'scripts/admin/main.js', array(), '1.0.0', true);
+    // wp_enqueue_script('metabox-admin', PLUGIN_URL . 'scripts/admin/metabox-io.js', array(), '1.0.0', true);
+    
+    
+    wp_enqueue_script('main', PLUGIN_URL . 'scripts/site/main.js', array(), '1.0.0', true);
+});

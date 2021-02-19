@@ -23,8 +23,8 @@ class CheckoutSinglePage
 
   public function __construct()
   {
-    $this->products = explode(",", $_POST['nvn-products']);
-    $this->amounts  = explode(",", $_POST['nvn-amounts']);
+    $this->products = explode(",", $_POST['nvn-products'] ?? '');
+    $this->amounts  = explode(",", $_POST['nvn-amounts'] ?? '');
     $this->args =  array(
       'post_type' => 'products',
       'post_status' => 'publish',
@@ -76,7 +76,8 @@ class CheckoutSinglePage
             <h5 class="mt-lg">Total : <?= Helper::convert_number_to_rupiah($this->total) ?></h5>
 
             <div class="mt-sm">
-              <button>Proccess To Payments</button>
+              <form action=""></form>
+              <button>Process To Payments</button>
             </div>
           </div>
         </div>

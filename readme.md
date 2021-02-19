@@ -5,7 +5,7 @@
 - Cart
 - Checkout
 - Payments (next update)
-- AJAX Checkout, Payments, Orders(Admin)
+- AJAX Cart, Checkout, Payments, Orders(Admin) (next update)
 
 ### App Features
 

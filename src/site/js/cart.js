@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    submitCart = () => {
+    const submitCart = () => {
         let products = JSON.parse(localStorage.getItem('products'));
         const productsList = products.map(product => product.productId)
         const productsAmount = products.map(product => product.value)
@@ -91,19 +91,19 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // use `` got some hidden error
-const cartHTML = '\
-<div class="add-to-cart__html-open"><button type="button">[view cart]</button></div>\
-<div class="add-to-cart__html__container">\
-    <div class="add-to-cart__html-bg"></div>\
-    <div class="add-to-cart__html-close"></div>\
-    <form action="/checkout" method="post" class="add-to-cart__html">\
-        <ul class="add-to-cart__html__list"></ul>\
-        <div class="add-to-cart__html-input">\
-            <input type="hidden" name="nvn-products"/>\
-            <input type="hidden" name="nvn-amounts"/>\
-        </div>\
-        <button type="button">Checkout</button>\
-    </form>\
-</div>'
+const cartHTML = `
+<div class="add-to-cart__html-open"><button type="button">[view cart]</button></div>
+<div class="add-to-cart__html__container">
+    <div class="add-to-cart__html-bg"></div>
+    <div class="add-to-cart__html-close"></div>
+    <form action="/checkout" method="post" class="add-to-cart__html">
+        <ul class="add-to-cart__html__list"></ul>
+        <div class="add-to-cart__html-input">
+            <input type="hidden" name="nvn-products"/>
+            <input type="hidden" name="nvn-amounts"/>
+        </div>
+        <button type="button">Checkout</button>
+    </form>
+</div>`
 
 document.body.innerHTML += cartHTML;

@@ -3,4 +3,4 @@ import "regenerator-runtime/runtime";
 
 // require('./orders.js')
 
-console.log('ok')
+console.log('oks')

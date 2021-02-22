@@ -75,10 +75,8 @@ class MetaboxIO
             ];
 
             /** 
-             * 
-             * 
-             * order page
-             * 
+             * order 
+             * page
              */
 
             $meta_boxes[] = array(
@@ -89,7 +87,7 @@ class MetaboxIO
                     array(
                         'name'  => 'Order ID',
                         'id'    => 'order_id',
-                        'type'  => 'number',
+                        'type'  => 'text',
                     ),
                     array(
                         'name'  => 'Full name',
@@ -130,9 +128,71 @@ class MetaboxIO
 
                 'fields' => array(
                     array(
-                        'name'  => 'Products',
-                        'id'    => 'order_products',
-                        'type'  => 'textarea',
+                        'name'  => 'Products ID',
+                        'id'    => 'order_products_id',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'Products Amount',
+                        'id'    => 'order_products_amount',
+                        'type'  => 'text',
+                    ),
+                )
+            );
+
+            $meta_boxes[] = array(
+                'title'      => 'Payment Information',
+                'post_types' => 'orders',
+
+                'fields' => array(
+                    array(
+                        'name'  => 'Payment ID',
+                        'id'    => 'order_payment_id',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'Payment Amount',
+                        'id'    => 'order_payment_amount',
+                        'type'  => 'number',
+                    ),
+                    array(
+                        'name'  => 'Payment Type',
+                        'id'    => 'order_payment_type',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'name'  => 'Payment Status',
+                        'id'    => 'order_payment_status',
+                        'type'  => 'text',
+                        'std'   => 'unpaid'
+                    ),
+                )
+            );
+
+            /** 
+             * payments
+             * page
+             */
+
+            $meta_boxes[] = array(
+                'title'      => 'Payment Information',
+                'post_types' => 'payments',
+
+                'fields' => array(
+                    array(
+                        'name'  => 'Payment ID',
+                        'id'    => 'payment_id',
+                        'type'  => 'text'
+                    ),
+                    array(
+                        'name'  => 'Payment Type',
+                        'id'    => 'payment_type',
+                        'type'  => 'text'
+                    ),
+                    array(
+                        'name'  => 'Payment Amount',
+                        'id'    => 'payment_amount',
+                        'type'  => 'number',
                     ),
                 )
             );

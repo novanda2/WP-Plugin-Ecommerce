@@ -5,12 +5,12 @@ class CheckoutPage
     public $id = 9991;
     public $post_title = "Checkout";
 
+
     public function __construct()
     {
         register_activation_hook(PLUGIN_WITH_CLASSES__FILE__, [$this, 'init']);
         register_deactivation_hook(PLUGIN_WITH_CLASSES__FILE__, [$this, 'destroy']);
         add_filter('page_template', [$this, 'set_single_template']);
-
 
         // cartjs
         // script

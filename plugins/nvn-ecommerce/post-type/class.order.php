@@ -60,6 +60,14 @@ class OrderPost
                         'address' => rwmb_get_value('order_address'),
                         'city' => rwmb_get_value('order_city'),
                         'postalcode' => rwmb_get_value('order_postalcode'),
+                        
+                        /**
+                         * payment 
+                         */
+                        'paymentId' => rwmb_get_value('order_payment_id'),
+                        'paymentAmount' => rwmb_get_value('order_payment_amount'),
+                        'paymentType' => rwmb_get_value('order_payment_type'),
+                        'paymentStatus' => rwmb_get_value('order_payment_status'),
                     );
 
                     array_push($orders, $data);

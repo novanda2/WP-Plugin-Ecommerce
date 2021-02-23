@@ -149,22 +149,28 @@ class MetaboxIO
                         'name'  => 'Payment ID',
                         'id'    => 'order_payment_id',
                         'type'  => 'text',
+                        'graphql_name' => 'PaymentID',
                     ),
                     array(
                         'name'  => 'Payment Amount',
                         'id'    => 'order_payment_amount',
                         'type'  => 'number',
+                        'graphql_name' => 'PaymentAmount',
                     ),
                     array(
                         'name'  => 'Payment Type',
                         'id'    => 'order_payment_type',
                         'type'  => 'text',
+                        'graphql_name' => 'PaymentType',
+                        'graphql_mutate'  => true
                     ),
                     array(
                         'name'  => 'Payment Status',
                         'id'    => 'order_payment_status',
                         'type'  => 'text',
-                        'std'   => 'unpaid'
+                        'std'   => 'unpaid',
+                        'graphql_name' => 'PaymentStatus',
+                        'graphql_mutate'  => true
                     ),
                 )
             );

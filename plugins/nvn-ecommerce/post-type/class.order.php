@@ -15,9 +15,10 @@ class OrderPost
             ),
             'public' => true,
             'supports' => array('title'),
+            'show_in_graphql' => true,
             'graphql_single_name' => 'order',
             'graphql_plural_name' => 'orders',
-            'rewrite' => array('slug' => 'orders', 'with_front' => false)
+            'rewrite' => array('slug' => 'orders', 'with_front' => false),
         ];
 
         add_action('init',  [$this, 'init']);

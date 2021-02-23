@@ -34,6 +34,8 @@ require_once(PLUGIN_DIR . 'pages/class.page-order.php');
 require_once(PLUGIN_DIR . 'pages/class.page-payment.php');
 require_once(PLUGIN_DIR . 'pages/class.page-payment-form.php');
 
+require_once(PLUGIN_DIR . 'api/order.php');
+
 
 
 $allow_rating = get_option('product_review_rating');

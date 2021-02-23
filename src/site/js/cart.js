@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             productId: cartID.value,
             title: cartTitle.value,
             value: cartVal.value,
-            price: cartPrice.value
+            price: cartPrice.value,
         });
 
         localStorage.setItem('products', JSON.stringify(products));
@@ -72,8 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
         let products = JSON.parse(localStorage.getItem('products'));
         const productsList = products.map(product => product.productId)
         const productsAmount = products.map(product => product.value)
+        const productsPrice = products.map(product => product.price)
+        const productsValue = products.map(product => product.value)
+
+        let productsTotal = 0
+        products.map((product, i) => {
+            productsTotal = productsTotal + (product.value * product.price)
+            return product.value * product.price
+        })
+        console.log(productsTotal)
         cartInput.querySelector('[name="nvn-products"]').value = productsList
         cartInput.querySelector('[name="nvn-amounts"]').value = productsAmount
+        cartInput.querySelector('[name="nvn-price"]').value = productsPrice
+        cartInput.querySelector('[name="nvn-value"]').value = productsValue
+        cartInput.querySelector('[name="nvn-total"]').value = productsTotal
 
         cart.submit()
     }
@@ -101,6 +113,9 @@ const cartHTML = `
         <div class="add-to-cart__html-input">
             <input type="hidden" name="nvn-products"/>
             <input type="hidden" name="nvn-amounts"/>
+            <input type="hidden" name="nvn-price"/>
+            <input type="hidden" name="nvn-value"/>
+            <input type="hidden" name="nvn-total"/>
         </div>
         <button type="button">Checkout</button>
     </form>

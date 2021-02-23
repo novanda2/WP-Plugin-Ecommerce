@@ -44,6 +44,8 @@ class CheckoutSinglePage
 
     $this->products = explode(",", $_POST['nvn-products'] ?? '');
     $this->amounts  = explode(",", $_POST['nvn-amounts'] ?? '');
+    $this->total = $_POST['nvn-total'] ?? '';
+
     $this->args =  array(
       'post_type' => 'products',
       'post_status' => 'publish',
@@ -60,9 +62,7 @@ class CheckoutSinglePage
     $i = 0;
     while ($this->posts->have_posts()) : $i++;
       $this->posts->the_post();
-      $product_price_metaboxio = rwmb_get_value('product_price');
       $this->product_title_list[$i] = get_the_title();
-      $this->total = $this->total + ($product_price_metaboxio * $this->amounts[$i - 1]);
     endwhile;
 
     $this->handle_checkout();
@@ -72,6 +72,7 @@ class CheckoutSinglePage
   public function handle_checkout()
   {
     $guid = wp_generate_uuid4();
+
     $order_args = [
       'guid' => $guid,
       'post_title' => $guid,
@@ -89,9 +90,9 @@ class CheckoutSinglePage
         'order_city' =>  $this->personal_info['city'],
         'order_postalcode' =>  $this->personal_info['postalcode'],
         'order_payment_id' =>  $guid,
-        'order_payment_amount' =>  $this->total,
+        'order_payment_amount' => $_POST['total'] ?? '',
         'order_product_type' => '',
-        'order_payment_status' => 'unpaid'
+        'order_payment_status' => 'pending'
       ]
     ];
 
@@ -139,6 +140,7 @@ class CheckoutSinglePage
             <div class="mt-sm">
               <form action="checkout" method="POST">
                 <input type="hidden" name="action" value="submit-order">
+                <input type="hidden" name="total" value="<?= Helper::convert_number_to_rupiah($this->total) ?>">
                 <button>Process To Payments</button>
               </form>
             </div>

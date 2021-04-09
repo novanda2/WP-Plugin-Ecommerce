@@ -1,4 +1,4 @@
-## Plugin Features
+## Plugin Features (Deprecated)
 
 - User Auth
 - Products
